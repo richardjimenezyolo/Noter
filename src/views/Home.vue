@@ -33,8 +33,6 @@
 				this.lts.push({name: doc.data().name, id: doc.id})
 			})
 
-			console.log(query)
-
 		},
 		data() {
 			return {
