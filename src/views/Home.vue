@@ -28,13 +28,14 @@
 
 			auth.onAuthStateChanged(async user => {
 				if (user) {
-					const query = await db.collection('notes').where('uid', '==', user.uid).get();
+					db.collection('notes').where('uid', '==', user.uid).onSnapshot(docs => {
+						this.lts = []
+						docs.forEach(doc => {
+							this.lts.push({name: doc.data().name, id: doc.id})
+						})
 
-					query.forEach(doc => {
-						this.lts.push({name: doc.data().name, id: doc.id})
-					})
-
-					console.log(user.uid)
+						console.log(user.uid)
+					});
 
 				} else {
 					location.href = '#/login';
