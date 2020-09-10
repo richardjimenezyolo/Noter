@@ -23,8 +23,6 @@
 	import { mdiPlus } from '@mdi/js';
 	import { db, auth } from '../firebase.js';
 
-	window.au
-
 	export default {
 		created() {
 
@@ -37,9 +35,9 @@
 					})
 
 					console.log(user.uid)
-					
+
 				} else {
-					alert('You are not sign in!')
+					location.href = '#/login';
 				}
 			})
 
