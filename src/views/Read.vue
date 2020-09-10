@@ -33,15 +33,15 @@
 
 			window.editor = this.editor
 
-			const doc = await db.collection('notes').doc(this.id).get()
+			db.collection('notes').doc(this.id).onSnapshot( doc => {
+				const note = doc.data().note
+				this.name = doc.data().name
 
-			const note = doc.data().note
-			this.name = doc.data().name
-
-			setTimeout(_ => {
-				this.editor.render(note)
-				this.load = true
-			}, 1000)
+				setTimeout(_ => {
+					this.editor.render(note)
+					this.load = true
+				}, 1000)
+			} )
 
 		},
 		methods: {
