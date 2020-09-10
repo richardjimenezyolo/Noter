@@ -2,7 +2,7 @@
 	<v-row justify="center" align="center" style="height: 100%;">
 		<div>
 			<h2>Login:</h2>
-			<v-text-field id="name" v-model="email" dark outlined placeholder="Email..."/>
+			<v-text-field id="name" v-model="email" dark outlined placeholder="Email..." type="email"/>
 			<br>
 			<v-text-field id="pwd" v-model="pwd" dark outlined placeholder="Password..." type="password"/>
 
