@@ -7,6 +7,11 @@
 			
 			<v-toolbar-title> {{ name }}</v-toolbar-title>
 
+			<v-spacer/>
+
+			<v-btn icon @click="del">
+				<v-icon>{{ deleteIcon }}</v-icon>
+			</v-btn>
 		</v-toolbar>
 		
 		<div id="editorjs"></div>
@@ -16,6 +21,7 @@
 
 <script>
 	import { mdiArrowLeft } from '@mdi/js';
+	import { mdiDelete } from '@mdi/js';
 	import Editor from '../editor.js';
 	import { db, auth } from '../firebase.js';
 
@@ -34,32 +40,52 @@
 
 			setTimeout(_ => {
 				this.editor.render(note)
+				this.load = true
 			}, 1000)
 
 		},
 		methods: {
 			save() {
-				auth.onAuthStateChanged(async user => {
-					const name = this.name;
+				if (this.load) {
+					auth.onAuthStateChanged(async user => {
+						const name = this.name;
 
-					if (name != '') {
+						if (name != '') {
 
-						const out = await this.editor.save();
+							const out = await this.editor.save();
 
-						db.collection('notes').doc(this.id).set({
-							uid: user.uid,
-							name: name,
-							note: out
-						})
+							db.collection('notes').doc(this.id).set({
+								uid: user.uid,
+								name: name,
+								note: out
+							})
 
-						location.href = '#/'
+							location.href = '#/'
 
-					} else {
-						alert('You need to write a name to save this note')
-					}
+						} else {
+							alert('You need to write a name to save this note')
+						}
 
-				})
+					})
+				}
 				
+			},
+
+			del() {
+				console.log('del')
+				
+
+				if (confirm("Are you sure?")) {
+					console.log('yes')
+
+					db.collection('notes').doc(this.id).delete().then(_ => {
+						console.log('deleted')
+						location.href = '#/'
+					})
+
+				} else {
+					console.log('no')
+				}
 			}
 		},
 		data() {
@@ -67,7 +93,9 @@
 				arrow: mdiArrowLeft,
 				editor: '',
 				name: '',
-				id: this.$route.params.id
+				id: this.$route.params.id,
+				deleteIcon: mdiDelete,
+				load: false,
 			}
 		}
 	}

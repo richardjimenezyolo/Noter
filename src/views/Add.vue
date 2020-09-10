@@ -4,7 +4,7 @@
 			<v-btn icon @click="save">
 				<v-icon>{{ arrow }}</v-icon>
 			</v-btn>
-			<v-text-field class="mt-5" color="pink accent-3" id="name" />
+			<v-text-field class="mt-5" color="pink accent-3" id="name" placeholder="Name..." />
 		</v-toolbar>
 		
 		<div id="editorjs"></div>
