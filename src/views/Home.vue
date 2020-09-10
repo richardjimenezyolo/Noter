@@ -21,16 +21,26 @@
 
 <script>
 	import { mdiPlus } from '@mdi/js';
-	import { db } from '../firebase.js';
+	import { db, auth } from '../firebase.js';
 
-	window.db = db
+	window.au
 
 	export default {
-		async created() {
-			const query = await db.collection('notes').get();
+		created() {
 
-			query.forEach(doc => {
-				this.lts.push({name: doc.data().name, id: doc.id})
+			auth.onAuthStateChanged(async user => {
+				if (user) {
+					const query = await db.collection('notes').where('uid', '==', user.uid).get();
+
+					query.forEach(doc => {
+						this.lts.push({name: doc.data().name, id: doc.id})
+					})
+
+					console.log(user.uid)
+					
+				} else {
+					alert('You are not sign in!')
+				}
 			})
 
 		},

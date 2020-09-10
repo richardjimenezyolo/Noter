@@ -15,30 +15,36 @@
 <script>
 	import { mdiArrowLeft } from '@mdi/js';
 	import Editor from '../editor.js';
-	import { db } from '../firebase.js';
+	import { db, auth } from '../firebase.js';
 
 	export default {
 		created() {
 			this.editor = Editor()
 		},
 		methods: {
-			async save() {
-				const name = document.querySelector('#name').value;
+			save() {
 
-				if (name != '') {
+				auth.onAuthStateChanged( async (user) => {
+					const name = document.querySelector('#name').value;
 
-					const out = await this.editor.save();
+					if (name != '') {
 
-					db.collection('notes').add({
-						name: name,
-						note: out
-					})
+						const out = await this.editor.save();
 
-					location.href = '#/'
+						db.collection('notes').add({
+							uid: user.uid,
+							name: name,
+							note: out
+						})
 
-				} else {
-					alert('You need to write a name to save this note')
-				}
+						location.href = '#/'
+
+					} else {
+						alert('You need to write a name to save this note')
+					}
+				})
+
+				
 			}
 		},
 		data() {

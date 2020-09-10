@@ -17,7 +17,7 @@
 <script>
 	import { mdiArrowLeft } from '@mdi/js';
 	import Editor from '../editor.js';
-	import { db } from '../firebase.js';
+	import { db, auth } from '../firebase.js';
 
 	window.db = db
 
@@ -38,23 +38,28 @@
 
 		},
 		methods: {
-			async save() {
-				const name = this.name;
+			save() {
+				auth.onAuthStateChanged(async user => {
+					const name = this.name;
 
-				if (name != '') {
+					if (name != '') {
 
-					const out = await this.editor.save();
+						const out = await this.editor.save();
 
-					db.collection('notes').doc(this.id).set({
-						name: name,
-						note: out
-					})
+						db.collection('notes').doc(this.id).set({
+							uid: user.uid,
+							name: name,
+							note: out
+						})
 
-					location.href = '#/'
+						location.href = '#/'
 
-				} else {
-					alert('You need to write a name to save this note')
-				}
+					} else {
+						alert('You need to write a name to save this note')
+					}
+
+				})
+				
 			}
 		},
 		data() {
