@@ -9,7 +9,7 @@ export default function() {
         tools: {
             paragraph: {
                 config: {
-                    placeholder: 'Write something meaninful...😎'
+                    placeholder: 'Write something Cool...😎'
                 }
             },
             header: Header,
