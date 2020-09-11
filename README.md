@@ -1,7 +1,7 @@
 # Noter
 Noter is a simple app to write things down.
 
-<img src="res/Screenshot_20200910-191641_Noter.jpg" width="200" height="400"/>
+<img src="res/screenshot.jpg" width="200" height="400"/>
 
 ## Build 
 to build this app you need have cordova installed on your machine, and the dependencies of whatever platform you desire to use.
