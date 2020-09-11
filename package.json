@@ -12,8 +12,8 @@
   "keywords": [
     "ecosystem:cordova"
   ],
-  "author": "Apache Cordova Team",
-  "license": "Apache-2.0",
+  "author": "Richard Jimenez",
+  "license": "MIT",
   "devDependencies": {
     "@mdi/js": "^5.5.55",
     "cordova-android": "^9.0.0",
