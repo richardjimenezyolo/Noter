@@ -18,6 +18,7 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 window.firebase = firebase
+firebase.firestore().enablePersistence();
 
 export let db = firebase.firestore();
 export let auth = firebase.auth();
