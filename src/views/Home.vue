@@ -1,7 +1,7 @@
 <template>
 	<div>
 
-		<v-text-field color="pink accent-3" dark placeholder="Search..." class="mx-3 my-3" outlined />
+		<v-text-field color="pink accent-3" v-model="search" dark placeholder="Search..." class="mx-3 my-3" outlined />
 
 		<div v-for="i in lts">
 			<v-card color="pink accent-3" class="mx-3 my-2" dark :href="'#/read/'+i.id">
@@ -31,7 +31,8 @@
 					db.collection('notes').where('uid', '==', user.uid).onSnapshot(docs => {
 						this.lts = []
 						docs.forEach(doc => {
-							this.lts.push({name: doc.data().name, id: doc.id})
+							this.lts.push({name: doc.data().name, id: doc.id});
+							this.lts_back.push({name: doc.data().name, id: doc.id});
 						})
 
 						console.log(user.uid)
@@ -46,7 +47,25 @@
 		data() {
 			return {
 				plus: mdiPlus,
-				lts: []
+				lts: [],
+				lts_back: [],
+				search: ''
+			}
+		},
+		watch: {
+			search(val) {
+				console.log(val);
+
+				this.lts = []
+
+				this.lts_back.forEach(doc => {
+					const filter = doc.name.includes(val);
+					console.log(filter)
+
+					if (filter) {
+						this.lts.push(doc)
+					}
+				})
 			}
 		}
 	}
