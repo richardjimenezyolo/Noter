@@ -22,25 +22,22 @@
 <script>
 	import { mdiArrowLeft } from '@mdi/js';
 	import { mdiDelete } from '@mdi/js';
-	import Editor from '../editor.js';
+	import { Load } from '../editor.js';
 	import { db, auth } from '../firebase.js';
 
 	window.db = db
 
 	export default {
 		async created() {
-			this.editor = Editor();
-
 			window.editor = this.editor
 
 			db.collection('notes').doc(this.id).onSnapshot( doc => {
 				const note = doc.data().note
 				this.name = doc.data().name
 
-				setTimeout(_ => {
-					this.editor.render(note)
-					this.load = true
-				}, 1000)
+				this.editor = Load(note);
+
+				this.load = true
 			} )
 
 		},
@@ -60,7 +57,9 @@
 								note: out
 							})
 
-							location.href = '#/'
+							setTimeout(_ => {
+								location.href = '#/';
+							}, 500)
 
 						} else {
 							alert('You need to write a name to save this note')

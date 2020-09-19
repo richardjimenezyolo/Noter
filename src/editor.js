@@ -19,3 +19,20 @@ export default function() {
         }
     })
 }
+
+export const Load = data => {
+    return new EditorJS({
+        tools: {
+            paragraph: {
+                config: {
+                    placeholder: 'Write something Cool...😎'
+                }
+            },
+            header: Header,
+            checklist: CheckList,
+            list: List,
+            image: SimpleImage
+        },
+        data: data
+    })
+}
