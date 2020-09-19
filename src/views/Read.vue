@@ -28,11 +28,12 @@
 	window.db = db
 
 	export default {
-		async created() {
+		created() {
 			window.editor = this.editor
 
 			db.collection('notes').doc(this.id).onSnapshot( doc => {
-				const note = doc.data().note
+				this.doc = doc.data()
+				const note = this.doc.note;
 				this.name = doc.data().name
 
 				this.editor = Load(note);
@@ -77,9 +78,14 @@
 				if (confirm("Are you sure?")) {
 					console.log('yes')
 
-					db.collection('notes').doc(this.id).delete().then(_ => {
-						console.log('deleted')
-						location.href = '#/'
+					this.editor.save().then(out => {
+						db.collection('trash').add(this.doc);
+
+						db.collection('notes').doc(this.id).delete().then(_ => {
+							location.href = '#/';
+						})
+
+						location.href = '#/';
 					})
 
 				} else {
@@ -95,6 +101,7 @@
 				id: this.$route.params.id,
 				deleteIcon: mdiDelete,
 				load: false,
+				doc: {}
 			}
 		}
 	}
