@@ -19,7 +19,7 @@
 	</div>
 </template>
 
-<script>
+<script lang="ts">
 	import { mdiArrowLeft } from '@mdi/js';
 	import { mdiDelete } from '@mdi/js';
 	import { Load } from '../editor.js';

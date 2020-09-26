@@ -12,7 +12,7 @@
 	</div>
 </template>
 
-<script>
+<script lang="ts">
 	import { mdiArrowLeft } from '@mdi/js';
 	import Editor from '../editor.js';
 	import { db, auth } from '../firebase.js';

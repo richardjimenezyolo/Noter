@@ -66,7 +66,7 @@
 </template>
 
 
-<script>
+<script lang="ts">
 	import { mdiPlus } from '@mdi/js';
 	import { db, auth } from '../firebase.js';
 

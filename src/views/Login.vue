@@ -12,7 +12,7 @@
 	</v-row>
 </template>
 
-<script>
+<script lang="ts">
 	import { auth } from '../firebase.js';
 
 	export default {
