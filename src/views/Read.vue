@@ -36,7 +36,11 @@
 				const note = this.doc.note;
 				this.name = doc.data().name
 
-				this.editor = Load(note);
+				if (this.load) {
+					this.editor.render(note)
+				} else {
+					this.editor = Load(note);
+				}
 
 				this.load = true
 			} )
