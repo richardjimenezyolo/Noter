@@ -44,7 +44,7 @@
 	    		<h2>Trash:</h2>
 
 	    		<div v-for="i in trash">
-	    			<v-list-item :href="`#/read/${i.id}`">
+	    			<v-list-item :href="`#/trash/${i.id}`">
 
 		    			<v-list-item-content>
 		    				<v-list-item-title>
