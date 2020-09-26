@@ -12,4 +12,7 @@
 		color: white;
 		height: 100%;
 	}
+	body, html {
+		background: #000;
+	}
 </style>
