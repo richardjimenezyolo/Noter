@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import "firebase/auth";
 import "firebase/analytics";
 import "firebase/firestore";
+import "firebase/storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAuPhMCbfwKSlmFJ39zn1nlxGmloQeSyEc",
@@ -20,5 +21,6 @@ firebase.analytics();
 window.firebase = firebase
 firebase.firestore().enablePersistence();
 
-export let db = firebase.firestore();
-export let auth = firebase.auth();
+export let db 		= firebase.firestore();
+export let auth 	= firebase.auth();
+export let storage 	= firebase.storage();

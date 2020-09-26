@@ -78,8 +78,6 @@
 					
 					this.user = user;
 
-					console.log(user)
-
 					db.collection('notes').where('uid', '==', user.uid).onSnapshot(docs => {
 						this.lts = []
 						docs.forEach(doc => {
@@ -95,7 +93,6 @@
 							this.trash.push({name: doc.data().name, id: doc.id});
 						})
 
-						console.log(user.uid)
 					});
 
 				} else {

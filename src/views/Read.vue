@@ -9,6 +9,12 @@
 
 			<v-spacer/>
 
+			<v-btn icon @click="upload">
+				<v-icon>
+					{{ photoIcon }}
+				</v-icon>
+			</v-btn>
+
 			<v-btn icon @click="del">
 				<v-icon>{{ deleteIcon }}</v-icon>
 			</v-btn>
@@ -20,10 +26,10 @@
 </template>
 
 <script lang="ts">
-	import { mdiArrowLeft } from '@mdi/js';
-	import { mdiDelete } from '@mdi/js';
+
+	import { mdiArrowLeft, mdiDelete, mdiImage  } from '@mdi/js';
 	import { Load } from '../editor.js';
-	import { db, auth } from '../firebase.js';
+	import { db, auth, storage } from '../firebase.js';
 
 	export default {
 		created() {
@@ -44,6 +50,33 @@
 
 		},
 		methods: {
+			upload() {
+				let input = document.createElement('input')
+				input.type = 'file';
+				input.click()
+
+				input.onchange = _ => {
+					
+					let imgRef = storage.ref(`imgs/${Math.random()}.jpg`);
+
+					imgRef.put(input.files[0]).then(out => {
+						
+						console.log("File upload successfully");
+						
+						imgRef.getDownloadURL().then(url => {
+							console.log(url)
+
+							this.editor.blocks.insert("image", {url: url})
+
+						})
+
+					}).catch(out => {
+						alert(out)
+					})
+
+
+				}
+			},
 			save() {
 				if (this.load) {
 					auth.onAuthStateChanged(async user => {
@@ -97,10 +130,11 @@
 		data() {
 			return {
 				arrow: mdiArrowLeft,
+				deleteIcon: mdiDelete,
+				photoIcon: mdiImage,
 				editor: '',
 				name: '',
 				id: this.$route.params.id,
-				deleteIcon: mdiDelete,
 				load: false,
 				doc: {}
 			}
