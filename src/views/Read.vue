@@ -25,11 +25,8 @@
 	import { Load } from '../editor.js';
 	import { db, auth } from '../firebase.js';
 
-	window.db = db
-
 	export default {
 		created() {
-			window.editor = this.editor
 
 			db.collection('notes').doc(this.id).onSnapshot( doc => {
 				this.doc = doc.data()
