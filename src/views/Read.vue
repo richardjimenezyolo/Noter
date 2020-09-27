@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<v-toolbar dark>
+		<v-app-bar dark fixed>
 			<v-btn icon @click="save">
 				<v-icon>{{ arrow }}</v-icon>
 			</v-btn>
@@ -18,8 +18,11 @@
 			<v-btn icon @click="del">
 				<v-icon>{{ deleteIcon }}</v-icon>
 			</v-btn>
-		</v-toolbar>
-		
+		</v-app-bar>
+
+		<br>
+		<br>
+
 		<div id="editorjs"></div>
 
 	</div>
