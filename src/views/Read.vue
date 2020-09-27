@@ -53,6 +53,7 @@
 			upload() {
 				let input = document.createElement('input')
 				input.type = 'file';
+				input.accept = 'image/png,image/gif,image/jpeg';
 				input.click()
 
 				input.onchange = _ => {
