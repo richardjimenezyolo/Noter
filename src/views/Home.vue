@@ -5,17 +5,27 @@
 
 		<v-text-field color="pink accent-3" v-model="search" dark placeholder="Search..." class="mx-3 my-3" outlined />
 
-		<div v-for="i in lts">
-			<v-card color="pink accent-3" class="mx-3 my-2" dark :href="'#/read/'+i.id">
-				<v-card-title>
-					{{ i.name }}
-				</v-card-title>
-			</v-card>
+		<!-- Notes Cards -->
+
+		<div v-if="load">
+			<div v-for="i in lts">
+				<v-card color="pink accent-3" class="mx-3 my-2" dark :href="'#/read/'+i.id">
+					<v-card-title>
+						{{ i.name }}
+					</v-card-title>
+				</v-card>
+			</div>
+		</div>
+
+		<div v-else>
+			<Load/>
 		</div>
 
 		<v-btn color="pink accent-3" href="#/add" fab bottom fixed right dark>
 			<v-icon>{{ plus }}</v-icon>
 		</v-btn>
+
+		<!-- Menu -->
 
 		<v-navigation-drawer
 	      v-model="drawer"
@@ -67,8 +77,9 @@
 
 
 <script lang="ts">
+	import Load from '../components/Load.vue'
 	import { mdiPlus } from '@mdi/js';
-	import { db, auth } from '../firebase.js';
+	import { db, auth } from '../firebase';
 
 	export default {
 		created() {
@@ -80,6 +91,9 @@
 
 					db.collection('notes').where('uid', '==', user.uid).onSnapshot(docs => {
 						this.lts = []
+
+						this.load = true;
+
 						docs.forEach(doc => {
 							this.lts.push({name: doc.data().name, id: doc.id});
 							this.lts_back.push({name: doc.data().name, id: doc.id});
@@ -109,7 +123,8 @@
 				search: '',
 				drawer: false,
 				user: {},
-				trash: []
+				trash: [],
+				load: false
 			}
 		},
 		methods: {
@@ -132,6 +147,9 @@
 					}
 				})
 			}
+		},
+		components: {
+			Load
 		}
 	}
 </script>

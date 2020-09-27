@@ -5,7 +5,7 @@
 				<v-icon>{{ arrow }}</v-icon>
 			</v-btn>
 			
-			<v-toolbar-title> {{ name }}</v-toolbar-title>
+			<v-toolbar-title>{{ name }}</v-toolbar-title>
 
 			<v-spacer/>
 
@@ -28,8 +28,8 @@
 <script lang="ts">
 
 	import { mdiArrowLeft, mdiDelete, mdiImage  } from '@mdi/js';
-	import { Load } from '../editor.js';
-	import { db, auth, storage } from '../firebase.js';
+	import { Load } from '../editor';
+	import { db, auth, storage } from '../firebase';
 
 	export default {
 		created() {
