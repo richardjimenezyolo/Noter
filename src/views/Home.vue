@@ -8,8 +8,8 @@
 		<!-- Notes Cards -->
 
 		<div v-if="load">
-			<div v-for="i in lts">
-				<v-card color="pink accent-3" class="mx-3 my-2" dark :href="'#/read/'+i.id">
+			<div v-for="i in lts" :key="i.name">
+				<v-card color="teal" class="mx-3 my-2" dark :href="'#/read/'+i.id">
 					<v-card-title>
 						{{ i.name }}
 					</v-card-title>
